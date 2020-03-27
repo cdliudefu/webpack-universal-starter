@@ -16,7 +16,7 @@ module.exports = {
     rules: [
       {
         test: /\.js|jsx$/,
-        use: 'babel-loader',
+        use: ['babel-loader?cacheDirectory'], //?cacheDirectory 用于缓存babel的编译结果，加快重新编译的速度
         exclude: /node_modules|bower_components/
       },
       {
@@ -48,6 +48,14 @@ module.exports = {
         ]
       },
       {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'] //需要安装less
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'] //需要安装node-sass，不需要安装sass
+      },
+      {
         test: /\.(woff|woff2|eot|ttf|otf)(\?.*)?$/i,
         loader: 'url-loader',
         options: {
@@ -72,5 +80,9 @@ module.exports = {
         removeAttributeQuotes: true //移除双引号
       }
     })
-  ]
+  ],
+  //告诉webpack在javascript运行环境中已经内置了哪些全局变量，不用将这些代码打包到代码里面去
+  externals: {
+    jquery: 'jQuery'
+  }
 }
