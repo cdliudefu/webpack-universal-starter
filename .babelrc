@@ -1,0 +1,36 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "safari>=7"]
+        },
+        //启用ES6模块语法专科为另一中模块类型，设置为false就不会转换模块。默认是'commonjs
+        //'amd' | 'umd' | 'systemjs' | 'commonjs' | false
+        //这样做的目的是：以前我们需要使用babel来将ES6的模块语法转换为AMD, CommonJS，UMD之类的模块化标准语法，但是现在webpack都帮我做了这件事了，所以我们不需要babel来做，因此需要在babel配置项中设置modules为false，
+        //因为它默认值是commonjs, 否则的话，会产生冲突。
+        "modules": false,
+        /**
+        * false：引用所有的 babel-polyfill ，在 webpack 中添加 babel-polyfill 入口处：
+　　　　　　　   entry:[ 'babel-polyfill' , 'index.js' ] , 引用所有的 polyfill，体积变大
+　　　　* true:引用部分，根据配置的 preset-env 环境，引用 polyfill,在入口文件中要引用 babel-polyfill
+        */
+        "useBuiltIns": "usage",
+        "corejs": "3"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": "2", //防止污染到全局变量
+        "helpers": false, //默认为true,表示是否开启内联babel helpers(即babel或者环境本来存在的某些对象方法函数)如：extends，etc这样的在调用模块名字时将被替换名字
+        "regenerator": true //默认为true,是否开启generator函数转换成使用regenerator runtime来避免污染全局域
+        // "moduleName": "@babel/runtime" //默认为babel-runtime,当调用辅助设置模块名字/路径
+      }
+    ]
+  ]
+}
