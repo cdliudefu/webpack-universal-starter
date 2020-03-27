@@ -14,6 +14,7 @@ const devConfig = {
   devtool: 'source-map',
   output: {
     filename: '[name]_[hash].js',
+    chunkFilename: '[name].chunk.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
