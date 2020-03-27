@@ -1,2 +1,7 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
 import './app.css'
-document.getElementById('root').innerHTML = 'hello world !!'
+
+ReactDOM.render(<App />, document.getElementById('root'))
